@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot {
 		camera.setFPS(30);
 		CvSink cvsink = CameraServer.getInstance().getVideo();
 		
-		//NavX Initialization and Setup
+		//NavX Initialization and Setupp
 		NavX = new AHRS(SPI.Port.kMXP);
 		double yawVal = NavX.getYaw();
 		double angleVal = NavX.getAngle();
