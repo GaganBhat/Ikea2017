@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -30,35 +31,37 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	private AHRS NavX;
-
+	
+	double [] defaultVal = new double[0];
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
+	//NetworkTable Vals
+	NetworkTable visionTable;
+	double[] widthA = visionTable.getNumberArray("width", defaultVal);
+	double width = widthA[0];
 
-	/**
-	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
-	 */
 	@Override
 	public void robotInit() {
+		//USB Camera Initialization and Setup
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(240, 180);
 		camera.setFPS(30);
-		
 		CvSink cvsink = CameraServer.getInstance().getVideo();
 		
-		
-		
-		oi = new OI();
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
-		
+		//NavX Initialization and Setup
 		NavX = new AHRS(SPI.Port.kMXP);
 		double yawVal = NavX.getYaw();
 		double angleVal = NavX.getAngle();
 		SmartDashboard.putNumber("Yaw", yawVal);
 		
-	
+		//Initializing the values of the Vision Contours report
+		visionTable = NetworkTable.getTable("GRIP/myContoursReport");
+		
+
+		
+		oi = new OI();
+		SmartDashboard.putData("Auto mode", chooser);
 		
 	}
 
@@ -66,6 +69,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 	
+		
 		
 	}
 
@@ -83,9 +87,6 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.start();
 	}
 
-	/**
-	 * This function is called periodically during autonomous	
-	 */
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
@@ -105,6 +106,7 @@ public class Robot extends IterativeRobot {
 		TwilightDrive.getInstance().controlTwilightDrive();
 		SmartDashboard.putNumber("LeftAxis0", oi.getDriverJoystick().getRawAxis(1));
 		SmartDashboard.putNumber("RightAxis5", oi.getDriverJoystick().getRawAxis(5));
+		SmartDashboard.putNumber("Width", width);
 		Scheduler.getInstance().run();
 		
 	}
