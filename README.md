@@ -15,8 +15,7 @@ FRC 2017 Java code which is underdevelopment for the Ikea 2017 robot. Mainly use
 - ~~Check navX status updates~~
 - ~~Generate working GRIP pipeline~~
 - Test GRIP latency when running on driverstation wirelessly
-- Implement Network table reads to find the value of contours.
-- Implement 
+- ~~Implement Network table reads to find the value of contours~~
 
 
 =======
