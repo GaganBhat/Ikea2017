@@ -16,5 +16,7 @@ FRC 2017 Java code which is underdevelopment for the Ikea 2017 robot. Mainly use
 - ~~Generate working GRIP pipeline~~
 - Test GRIP latency when running on driverstation wirelessly
 - Implement Network table reads to find the value of contours.
+- Implement 
+
 
 =======
