@@ -1,6 +1,6 @@
 ## Ikea 2017 Robot Code
 
-FRC 2017 Java code which is underdevelopment for the Ikea 2017 robot. Mainly used for eexperimentation with new and unvisited features to-be implemented in main competition. 
+FRC 2017 Java code which is underdevelopment for the Ikea 2017 robot. Mainly used for experimentation with new and unvisited features to-be implemented in main competition. 
 
 ## Current Features
 
