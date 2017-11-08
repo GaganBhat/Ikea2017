@@ -21,6 +21,7 @@ public class TwilightDrive extends Subsystem {
 	lDriveSetpoint;
 	private static TwilightDrive instance = new TwilightDrive();
 	
+	
 	public TwilightDrive() {
 		//Initialize CANTalon Configuration
 		rDriveMaster = new CANTalon(RobotMap.rightMaster);

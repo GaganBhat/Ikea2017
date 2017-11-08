@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team2220.robot;
 
+import org.usfirst.frc.team2220.robot.subsystems.DefaultDrive;
 import org.usfirst.frc.team2220.robot.subsystems.TwilightDrive;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -58,8 +59,6 @@ public class Robot extends IterativeRobot {
 		//Initializing the values of the Vision Contours report
 		visionTable = NetworkTable.getTable("GRIP/myContoursReport");
 		
-
-		
 		oi = new OI();
 		SmartDashboard.putData("Auto mode", chooser);
 		
@@ -76,6 +75,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Width", width);
 	}
 
 
@@ -97,16 +97,22 @@ public class Robot extends IterativeRobot {
 
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		
 		Scheduler.getInstance().removeAll();
+		DefaultDrive.init();
+		
 	}
 
 
 	@Override
 	public void teleopPeriodic() {
-		TwilightDrive.getInstance().controlTwilightDrive();
+		//TwilightDrive.getInstance().controlTwilightDrive();
+		DefaultDrive.Drive();
+		
 		SmartDashboard.putNumber("LeftAxis0", oi.getDriverJoystick().getRawAxis(1));
 		SmartDashboard.putNumber("RightAxis5", oi.getDriverJoystick().getRawAxis(5));
 		SmartDashboard.putNumber("Width", width);
+		
 		Scheduler.getInstance().run();
 		
 	}
